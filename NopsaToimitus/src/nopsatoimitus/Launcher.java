@@ -7,6 +7,8 @@ package nopsatoimitus;
 import java.util.ArrayList;
 import java.util.List;
 import nopsatoimitus.data.GeoCode;
+import nopsatoimitus.data.Permutaatio;
+import nopsatoimitus.data.Reitti;
 import nopsatoimitus.data.ReittiPiste;
 
 /**
@@ -44,13 +46,59 @@ public class Launcher {
         System.out.println("L -> 3 -> 1 - > 2 : " + (GeoCode.distance(lähtö, kolmas) + GeoCode.distance(kolmas, eka) + GeoCode.distance(eka, toka)));
         
         Double[][] koe = GeoCode.doMatrix(lista);
+        //ReittiPiste[][] rp_matriisi = GeoCode.doMatrix2(lista);
+        //rp_matriisi = new ReittiPiste[lista.size()][lista.size()];
+        /*
         for (int i = 0; i < koe.length; i++){
             for (int j = 0; j < koe.length; j++){
                 System.out.print(koe[i][j] + " " );
             }
             System.out.println();
         }
+        for (int i = 0; i < rp_matriisi.length; i++){
+            for (int j = 0; j < rp_matriisi.length; j++){
+                ReittiPiste rp = rp_matriisi[i][j];
+                System.out.print(rp.getNimi() + " " );
+            }
+            System.out.println();
+        }*/
+        //GeoCode.findShortest(lista, koe, 0);
         
-        GeoCode.findShortest(lista, koe, 0);
+        ReittiPiste[] test = new ReittiPiste[lista.size()-1];
+        
+        Reitti reitti = new Reitti(lista.size());
+        for (int i = 0; i < lista.size(); i++){//ReittiPiste piste: lista){
+            reitti.setSeuraavaPiste(lista.get(i));
+        }
+        for (int i = 1; i < lista.size(); i++){//ReittiPiste piste: lista){
+            test[i-1] = lista.get(i);
+        }
+        System.out.println("Reitin pituus: " + reitti.getPituus());
+        int mahd = 1;
+        for (int i = 1; i <= lista.size()-1; i++){
+            mahd *= i;
+        }
+        System.out.println("Permutaatioita: " + mahd);
+        Permutaatio perm = new Permutaatio(test, lista.get(0), mahd);
+        Reitti parasReitti = new Reitti(lista.size());
+        /*
+        //for (int i=0; i < Permutaatio.max; i++){
+            Reitti yritys = new Reitti(lista.size());
+            for (int j=0; j<lista.size(); j++){
+                //yritys.setSeuraavaPiste(Permutaatio.permutaatiot[i][j] );
+                yritys.setSeuraavaPiste(Permutaatio.permutaatiot[0][j] );
+                if (parasReitti.getPituus()>-1 && parasReitti.getPituus() < yritys.getPituus()){
+                    j=lista.size();
+                }
+            }
+            if (parasReitti.getPituus()<0 || parasReitti.getPituus() > yritys.getPituus()){
+                parasReitti = yritys;
+            }
+        //}
+        for (int i = 0; i < parasReitti.getReitti().length; i++){
+            System.out.print(parasReitti.getReitti()[i].getNimi() + " ");
+        }
+        System.out.println( parasReitti.getPituus());
+        */
     }
 }

@@ -63,4 +63,22 @@ public class GeoCode {
             }
         }
     }
+
+    public static ReittiPiste[][] doMatrix2(List<ReittiPiste> lista) {
+        int koko = lista.size();
+        ReittiPiste[][] matriisi = new ReittiPiste[koko][koko];
+        for(int i = 0; i < koko; i++){
+            for(int j = 0; j < koko; j++){
+                if (matriisi[i][j] == null){
+                    if (j==0){
+                        matriisi[i][j] = lista.get(0);
+                    } else {
+                        matriisi[i][j] = lista.get(j);
+                    }
+                }
+            }
+        }
+        
+        return matriisi;
+    }
 }
