@@ -35,6 +35,8 @@ public class Reitti {
             seuraava++;
             if ( seuraava>1 ){
                 pituus += GeoCode.distance(pisteet[seuraava-2], pisteet[seuraava-1]);
+            } else {
+                pituus = 0;
             }
             if (seuraava==pisteet.length){
                 tilaa=false;

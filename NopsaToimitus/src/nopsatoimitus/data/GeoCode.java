@@ -32,6 +32,7 @@ public class GeoCode {
         return GeoCode.distance(point_a.getLat(), point_a.getLon(), point_b.getLat(), point_b.getLon());
     }
 
+    /*
     public static Double[][] doMatrix(List<ReittiPiste> lista) {
         int koko = lista.size();
         Double[][] matriisi = new Double[koko][koko];
@@ -47,7 +48,8 @@ public class GeoCode {
         
         return matriisi;
     }
-
+*/
+    /*
     public static void findShortest(List<ReittiPiste> lista, Double[][] matriisi, int lahtö) {
         int koko = matriisi.length;
         //Double pituus = 0;
@@ -63,7 +65,8 @@ public class GeoCode {
             }
         }
     }
-
+*/
+    /*
     public static ReittiPiste[][] doMatrix2(List<ReittiPiste> lista) {
         int koko = lista.size();
         ReittiPiste[][] matriisi = new ReittiPiste[koko][koko];
@@ -80,5 +83,5 @@ public class GeoCode {
         }
         
         return matriisi;
-    }
+    }*/
 }

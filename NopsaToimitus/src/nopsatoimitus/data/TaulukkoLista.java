@@ -49,7 +49,7 @@ public class TaulukkoLista<T> implements java.io.Serializable{
     public T remove(int index){
         T removed = (T) tallessa[index];
         try{
-            for (int i = index; i < tallessa.length; i++){
+            for (int i = index; i < tallessa.length-1; i++){
                 tallessa[i] = tallessa[i+1];
             }
             tallessa[tallessa.length-1] = null;
@@ -59,5 +59,22 @@ public class TaulukkoLista<T> implements java.io.Serializable{
             return null;
         }
         return removed;
+    }
+    
+    @Override
+    public String toString(){
+        String str = "";
+        for (int i = 0; i < size; i++){
+            T obj = tallessa[i];
+            if (obj instanceof ReittiPiste){
+                ReittiPiste rp = (ReittiPiste) tallessa[i];
+                str += rp.getNimi();
+                if (i < (size-2)){
+                    str += "/";
+                }
+            }
+        }
+        return str;
+        
     }
 }
