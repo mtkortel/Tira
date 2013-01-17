@@ -11,7 +11,8 @@ package nopsatoimitus.data;
 public class Permutaatio {
     private static ReittiPiste[] pisteet;
     private static boolean[] käynnit;
-    public static ReittiPiste[][] permutaatiot;
+    private static ReittiPiste[] permutaatiot;
+    public static ReittiPiste[][] kaikki;
     private static int määrä;
     private static ReittiPiste lähtö;
     public static int max;
@@ -23,12 +24,13 @@ public class Permutaatio {
         cur = 0;
         pisteet = alkuperäinen;
         käynnit = new boolean[pisteet.length];
-        permutaatiot = new ReittiPiste[max][pisteet.length+1];
+        permutaatiot = new ReittiPiste[pisteet.length];
+        kaikki = new ReittiPiste[max][pisteet.length+2];
         määrä = 0;
         //for(cur=0; cur < max; cur++){
             teePermutaatio(0);
         //}
-        System.out.println("Määrä: " + määrä);
+        //System.out.println("Määrä: " + määrä);
     }
 
     
@@ -36,25 +38,31 @@ public class Permutaatio {
     
 
     private void teePermutaatio(int indeksi) {
-        int pe = permutaatiot[0].length;
-        if (indeksi >= permutaatiot[0].length-1){
+        int pe = permutaatiot.length;
+        if (indeksi >= permutaatiot.length){
             määrä++;
-            for(ReittiPiste piste: permutaatiot[cur]){
-                System.out.print(" " + piste.getNimi() + " ");
+            int i = 1;
+            kaikki[cur][0] = lähtö;
+            kaikki[cur][pisteet.length+1] = lähtö;
+            for(ReittiPiste piste: permutaatiot){
+                //System.out.print(" " + piste.getNimi() + " ");
+                kaikki[cur][i] = piste;
+                i++;
             }
-            System.out.println();
+            cur++;
+           // System.out.println();
             return;
         }
         for (int i=0; i < pisteet.length;i++){
-            if (i==1){
+            /*if (i==1){
                 permutaatiot[cur][0] = lähtö;
                 käynnit[0]=true;
-            }
+            }*/
             if (käynnit[i]){
                 continue;
             }
             käynnit[i] = true;
-            permutaatiot[cur][indeksi+1] = pisteet[i];
+            permutaatiot[indeksi] = pisteet[i];
             teePermutaatio(indeksi + 1);
             käynnit[i] = false;
         }
