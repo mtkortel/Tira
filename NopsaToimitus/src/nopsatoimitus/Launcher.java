@@ -14,6 +14,7 @@ import nopsatoimitus.data.Reitti;
 import nopsatoimitus.data.ReittiPiste;
 import nopsatoimitus.data.ReittiReader;
 import nopsatoimitus.data.TaulukkoLista;
+import nopsatoimitus.data.XMLParser;
 
 /**
  * Kuljetusliike NopsaToimitus
@@ -50,6 +51,7 @@ public class Launcher {
         TaulukkoLista<ReittiPiste> lista;
         ReittiReader lukija = new ReittiReader("paikat.txt");
         lista = lukija.lue();
+        boolean isAddress = lukija.isAddress();
         /*
         lista.add(lähtö);
         lista.add(eka);
@@ -73,12 +75,16 @@ public class Launcher {
         ReittiPiste[] test = new ReittiPiste[lista.size()-1];
         
         Reitti reitti = new Reitti(lista.size());
+        /*
         for (int i = 0; i < lista.size(); i++){//ReittiPiste piste: lista){
             reitti.setSeuraavaPiste(lista.get(i));
         }
-        for (int i = 1; i < lista.size(); i++){//ReittiPiste piste: lista){
+        */
+        // Ilman lähtö/maalipistettä
+        for (int i = 1; i < lista.size(); i++){
             test[i-1] = lista.get(i);
         }
+         
         int mahd = 1;
         for (int i = 1; i <= lista.size()-1; i++){
             mahd *= i;
@@ -89,31 +95,35 @@ public class Launcher {
         ReittiPiste[][] kaikki = Permutaatio.kaikki;
         Reitti parasReitti = new Reitti(Permutaatio.kaikki[0].length);
         Reitti huonoin = new Reitti(Permutaatio.kaikki[0].length);
-        for (int i = 0; i < mahd; i++){
-            Reitti yritys = new Reitti(Permutaatio.kaikki[i].length);
-            for (int j=0; j< kaikki[i].length; j++){
-                //System.out.print(kaikki[i][j].getNimi());
-                yritys.setSeuraavaPiste(kaikki[i][j]);
-                if (yritys.getPituus() > parasReitti.getPituus() && parasReitti.getPituus()>0){
-                    //j=kaikki[i].length;
-                } else {
-                    if (j == kaikki[i].length-1){
-                        parasReitti = yritys;
+        if (!isAddress){
+            for (int i = 0; i < mahd; i++){
+                Reitti yritys = new Reitti(Permutaatio.kaikki[i].length);
+                for (int j=0; j< kaikki[i].length; j++){
+                    //System.out.print(kaikki[i][j].getNimi());
+                    yritys.setSeuraavaPiste(kaikki[i][j], false);
+                    if (yritys.getPituus() > parasReitti.getPituus() && parasReitti.getPituus()>0){
+                        //j=kaikki[i].length;
+                    } else {
+                        if (j == kaikki[i].length-1){
+                            parasReitti = yritys;
+                        }
+                    }
+                    if (j < kaikki[i].length-1){
+                        //System.out.print(" -> ");
+                    } else {
+                        //System.out.print(" = " + yritys.getPituus());
+                        if (huonoin.getPituus() < yritys.getPituus()){
+                            huonoin = yritys;
+                        }
                     }
                 }
-                if (j < kaikki[i].length-1){
-                    //System.out.print(" -> ");
-                } else {
-                    //System.out.print(" = " + yritys.getPituus());
-                    if (huonoin.getPituus() < yritys.getPituus()){
-                        huonoin = yritys;
-                    }
-                }
+                //System.out.println();
             }
-            //System.out.println();
         }
+        
+        
         System.out.println("Reittimahdollisuuksia: " + mahd + " kpl.");
-        System.out.println("Paras reitti");
+        System.out.println("Paras reitti linnuntietä");
         for (int j=0; j< parasReitti.getReitti().length; j++){
             System.out.print(parasReitti.getReitti()[j].getNimi());
             if (j < kaikki[j].length-1){
@@ -122,7 +132,7 @@ public class Launcher {
                 System.out.println(" = " + parasReitti.getPituus());
             }
         }
-        System.out.println("Huonoin reitti");
+        System.out.println("Huonoin reitti linnuntietä");
         for (int j=0; j< huonoin.getReitti().length; j++){
             System.out.print(huonoin.getReitti()[j].getNimi());
             if (j < kaikki[j].length-1){
@@ -133,8 +143,51 @@ public class Launcher {
         }
         System.out.println();
         Calendar cal2 = Calendar.getInstance();
-        Date aika1 = cal1.getTime();
-        Date aika2 = cal2.getTime();
         System.out.println("Kesto: " + (cal2.getTimeInMillis() - cal1.getTimeInMillis()) + " ms.");
+        
+        cal1 = Calendar.getInstance();
+        System.out.println("Google Maps etäisyydet autolla");
+        System.out.println("Haku kestää kauan....");
+        for (int i = 0; i < mahd; i++){
+            Reitti yritys = new Reitti(Permutaatio.kaikki[i].length);
+            for (int j=0; j< kaikki[i].length; j++){
+                yritys.setSeuraavaPiste(kaikki[i][j], true);
+                if (yritys.getPituus() > parasReitti.getPituus() && parasReitti.getPituus()>0){
+                } else {
+                    if (j == kaikki[i].length-1){
+                        parasReitti = yritys;
+                    }
+                }
+                if (j < kaikki[i].length-1){
+                } else {
+                    if (huonoin.getPituus() < yritys.getPituus()){
+                        huonoin = yritys;
+                    }
+                }
+            }
+        }
+        System.out.println("Reittimahdollisuuksia: " + mahd + " kpl.");
+        System.out.println("Paras reitti autotietä");
+        for (int j=0; j< parasReitti.getReitti().length; j++){
+            System.out.print(parasReitti.getReitti()[j].getNimi());
+            if (j < kaikki[j].length-1){
+                System.out.print(" -> ");
+            } else {
+                System.out.println(" = " + parasReitti.getPituus());
+            }
+        }
+        System.out.println("Huonoin reitti autotietä");
+        for (int j=0; j< huonoin.getReitti().length; j++){
+            System.out.print(huonoin.getReitti()[j].getNimi());
+            if (j < kaikki[j].length-1){
+                System.out.print(" -> ");
+            } else {
+                System.out.println(" = " + huonoin.getPituus());
+            }
+        }
+        System.out.println();
+        cal2 = Calendar.getInstance();
+        System.out.println("Kesto: " + (cal2.getTimeInMillis() - cal1.getTimeInMillis()) + " ms.");
+        
     }
 }

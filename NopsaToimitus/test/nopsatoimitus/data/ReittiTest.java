@@ -48,7 +48,7 @@ public class ReittiTest {
     public void testSetSeuraavaPiste() {
         Reitti instance = new Reitti(1);
         boolean expResult = true;
-        boolean result = instance.setSeuraavaPiste(eka);
+        boolean result = instance.setSeuraavaPiste(eka, false);
         assertEquals(expResult, result);
     }
 
@@ -58,8 +58,8 @@ public class ReittiTest {
     @Test
     public void testGetPituus() {
         Reitti instance = new Reitti(2);
-        instance.setSeuraavaPiste(eka);
-        instance.setSeuraavaPiste(toka);
+        instance.setSeuraavaPiste(eka, false);
+        instance.setSeuraavaPiste(toka, false);
         double expResult = 2.0861046134477608;
         double result = instance.getPituus();
         assertEquals(expResult, result, 0.0);
@@ -71,11 +71,11 @@ public class ReittiTest {
     @Test
     public void testGetReitti() {
         Reitti instance = new Reitti(2);
-        instance.setSeuraavaPiste(eka);
-        instance.setSeuraavaPiste(toka);
+        instance.setSeuraavaPiste(eka, false);
+        instance.setSeuraavaPiste(toka, false);
         Reitti tmp = new Reitti(2);
-        tmp.setSeuraavaPiste(eka);
-        tmp.setSeuraavaPiste(toka);
+        tmp.setSeuraavaPiste(eka, false);
+        tmp.setSeuraavaPiste(toka, false);
         ReittiPiste[] expResult = tmp.getReitti();
         ReittiPiste[] result = instance.getReitti();
         assertArrayEquals(expResult, result);

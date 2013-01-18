@@ -58,4 +58,8 @@ public class ReittiReader {
         
         return pisteet;
     }
+
+    public boolean isAddress() {
+        return isAddress;
+    }
 }

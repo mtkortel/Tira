@@ -1,11 +1,11 @@
 ﻿COORD
-60.197094, 24.947634, Lähtö
-60.205273, 24.963062, HY
-60.222541, 24.948299, Perkiöntie
-60.233345, 25.019796, Ketokiventie
-60.212128, 24.812322, Linnoitustie
-60.271791, 24.806442, Sarkatie
-60.130991, 24.514039, LM Ericsson
-60.312711, 25.539694, Neste
-60.866459, 26.704373, Kouvola VR
-59.819551, 22.944968, Hanko Satama
+60.197279, 24.946214, Elimäenkatu 28 Helsinki
+60.159865, 24.948484, Kasarminkatu 2 Helsinki
+60.222537, 24.948628, Perkiöntie 2 Helsinki
+60.23338, 25.019345, Ketokiventie 2 Helsinki
+60.212421, 24.811809, Linnoitustie 4 Espoo
+60.272547, 24.809193, Sarkatie 1 Vantaa
+60.130693, 24.515872, Hirssalantie 50 Kirkkonummi
+60.382185, 25.646972, Jääkiekkotie 1 Porvoo
+60.866979, 26.703769, Hallituskatu 8 Kouvola
+59.823889, 22.940902, Sammontie 10 Hanko
