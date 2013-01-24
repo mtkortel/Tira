@@ -147,6 +147,23 @@ public class Launcher {
         
         cal1 = Calendar.getInstance();
         System.out.println("Google Maps etäisyydet autolla");
+        // Google Maps Distance Matrix hakee nopeammin
+        // https://developers.google.com/maps/documentation/distancematrix/
+        // http://maps.googleapis.com/maps/api/distancematrix/json?origins=Hyvink%C3%A4%C3%A4+Finland|Porvoo+Finland&destinations=Hyvink%C3%A4%C3%A4+Finland|Porvoo+Finland&language=fi-FI&sensor=false
+        
+        ///TODO: Haetaan distancematrixilla etäisyydet matriisiin
+        /*
+         * Esimerkkimatriisi
+         *   L  1  2  3  M
+         *   0  5  2  3  0
+         *   5  0  2  2  5
+         *   2  2  0  4  2
+         *   3  2  2  0  3
+         *   0  5  2  3  0
+         * Sitten etsimään reittiä siten että L on ensimmäinen ja M viimeinen....
+         * - bruteforce
+         * - breach-and-bound ???
+         */
         System.out.println("Haku kestää kauan....");
         for (int i = 0; i < mahd; i++){
             Reitti yritys = new Reitti(Permutaatio.kaikki[i].length);
