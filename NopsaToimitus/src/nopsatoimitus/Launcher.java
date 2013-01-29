@@ -4,17 +4,14 @@
  */
 package nopsatoimitus;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import nopsatoimitus.data.GeoCode;
+import nopsatoimitus.data.DistanceMatrix;
+import nopsatoimitus.data.LahinNaapuri;
 import nopsatoimitus.data.Permutaatio;
 import nopsatoimitus.data.Reitti;
 import nopsatoimitus.data.ReittiPiste;
 import nopsatoimitus.data.ReittiReader;
 import nopsatoimitus.data.TaulukkoLista;
-import nopsatoimitus.data.XMLParser;
 
 /**
  * Kuljetusliike NopsaToimitus
@@ -147,6 +144,11 @@ public class Launcher {
         
         cal1 = Calendar.getInstance();
         System.out.println("Google Maps etäisyydet autolla");
+        DistanceMatrix dm = new DistanceMatrix();
+        double[][] matkat = dm.getMatrix(lista);
+        LahinNaapuri ln = new LahinNaapuri(lista, matkat);
+        Reitti nn = ln.etsiLyhinReitti();
+        System.out.println("Reitti (NN): "+ nn.getPituus());
         // Google Maps Distance Matrix hakee nopeammin
         // https://developers.google.com/maps/documentation/distancematrix/
         // http://maps.googleapis.com/maps/api/distancematrix/json?origins=Hyvink%C3%A4%C3%A4+Finland|Porvoo+Finland&destinations=Hyvink%C3%A4%C3%A4+Finland|Porvoo+Finland&language=fi-FI&sensor=false
@@ -164,6 +166,7 @@ public class Launcher {
          * - bruteforce
          * - breach-and-bound ???
          */
+        /*
         System.out.println("Haku kestää kauan....");
         for (int i = 0; i < mahd; i++){
             Reitti yritys = new Reitti(Permutaatio.kaikki[i].length);
@@ -205,6 +208,6 @@ public class Launcher {
         System.out.println();
         cal2 = Calendar.getInstance();
         System.out.println("Kesto: " + (cal2.getTimeInMillis() - cal1.getTimeInMillis()) + " ms.");
-        
+        */
     }
 }

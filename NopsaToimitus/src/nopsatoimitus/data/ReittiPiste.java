@@ -16,7 +16,11 @@ public class ReittiPiste {
     private boolean visit;
     private double weight;
     private String nimi;
-    
+    /**
+     * Konstruktori
+     * @param lat   Latitude
+     * @param lon   Longitude
+     */
     public ReittiPiste(double lat, double lon) {
         this.lat = lat;
         this.lon = lon;
@@ -24,7 +28,13 @@ public class ReittiPiste {
         this.weight = 0;
         this.nimi = "";
     }
-
+    
+    /**
+     * Konstruktori
+     * @param lat   Latitude
+     * @param lon   Longitude
+     * @param nimi  Osoite / Nimi
+     */
     public ReittiPiste(double lat, double lon, String nimi) {
         this.lat = lat;
         this.lon = lon;

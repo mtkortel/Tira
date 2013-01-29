@@ -10,61 +10,71 @@ package nopsatoimitus.data;
  */
 public class Permutaatio {
     private static ReittiPiste[] pisteet;
-    private static boolean[] käynnit;
+    private static boolean[] kaynnit;
     private static ReittiPiste[] permutaatiot;
     public static ReittiPiste[][] kaikki;
-    private static int määrä;
-    private static ReittiPiste lähtö;
+    private static int maara=0;
+    private static ReittiPiste lahto;
     public static int max;
-    private static int cur;
-    
-    public Permutaatio(ReittiPiste[] alkuperäinen, ReittiPiste lähtö, int mahd) {
-        this.lähtö = lähtö;
+    private static int cur=0;
+
+    /**
+     * Construktori
+     * 
+     * @param alkuperäinen  Alkuperäinen reitti (ilman lähtöä ja loppua)
+     * @param lahto         Lähtöpiste (samalla myös loppupiste
+     * @param mahd          Mahdollisten reittien määrä
+     */
+    public Permutaatio(ReittiPiste[] alkuperäinen, ReittiPiste lahto, int mahd) {
+        Permutaatio.lahto = lahto;
         max = mahd;
-        cur = 0;
         pisteet = alkuperäinen;
-        käynnit = new boolean[pisteet.length];
+        kaynnit = new boolean[pisteet.length];
         permutaatiot = new ReittiPiste[pisteet.length];
         kaikki = new ReittiPiste[max][pisteet.length+2];
-        määrä = 0;
-        //for(cur=0; cur < max; cur++){
-            teePermutaatio(0);
-        //}
-        //System.out.println("Määrä: " + määrä);
+        teePermutaatio(0);
     }
 
-    
-        
-    
-
+    /**
+     * Rakentaa mahdolliset permutaatiot.
+     * Metodi tallentaa permutaation taulukkoon myöhempää käyttöä varten ja 
+     * kutsuu toista metodia permutaation tekemiseksi.
+     * 
+     * @param indeksi   Permutaation numero (=monesko)
+     */
     private void teePermutaatio(int indeksi) {
         int pe = permutaatiot.length;
         if (indeksi >= permutaatiot.length){
-            määrä++;
+            maara++;
             int i = 1;
-            kaikki[cur][0] = lähtö;
-            kaikki[cur][pisteet.length+1] = lähtö;
+            kaikki[cur][0] = lahto;
+            kaikki[cur][pisteet.length+1] = lahto;
             for(ReittiPiste piste: permutaatiot){
-                //System.out.print(" " + piste.getNimi() + " ");
                 kaikki[cur][i] = piste;
                 i++;
             }
             cur++;
-           // System.out.println();
             return;
         }
+        rakennaPermutaatiota(indeksi);
+    }
+    /**
+     * Metodi rakentaa permutaatiota vähän pidemmälle.
+     * Ensin tarkastetaan onko kyseinen permutaation osa jo tehty ja 
+     * jos on niin mennään seuraavaan, jos ei niin otataan käsittelyyn ja 
+     * käydään loppuun.
+     * 
+     * @param indeksi Monesko permutaatio on kyseessä.
+     */
+    private void rakennaPermutaatiota(int indeksi) {
         for (int i=0; i < pisteet.length;i++){
-            /*if (i==1){
-                permutaatiot[cur][0] = lähtö;
-                käynnit[0]=true;
-            }*/
-            if (käynnit[i]){
+            if (kaynnit[i]){
                 continue;
             }
-            käynnit[i] = true;
+            kaynnit[i] = true;
             permutaatiot[indeksi] = pisteet[i];
             teePermutaatio(indeksi + 1);
-            käynnit[i] = false;
+            kaynnit[i] = false;
         }
     }
 }

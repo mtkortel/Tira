@@ -4,7 +4,7 @@
  */
 package nopsatoimitus.data;
 
-/** Oma ArrayList-luokka
+/** Oma Geneerinen ArrayList-luokka
  *
  * @author Marko Kortelainen
  */
@@ -12,40 +12,64 @@ public class TaulukkoLista<T> implements java.io.Serializable{
     int size = 0;
     private T[] tallessa;
     
+    /**
+     * Konstruktori, joka saa parametrina taulukon  
+     * @param array taulukko 
+     */
     public TaulukkoLista(T[] array){
         tallessa = array;
+        size = array.length;
     }
 
+    /**
+     * Oletuskonstruktori, joka asettaa taulukon, jossa on 20 objektia
+     */
     public TaulukkoLista() {
         size = 0;
         tallessa = (T[]) new Object[20];
     }
     
+    /**
+     * Palauttaa halutun indeksin sisältämän objektin
+     * @param index Haluttu indeksi
+     * @return      Palautettava objekti
+     */
     public T get(int index) {
         return tallessa[index];
     }
 
+    /**
+     * Palauttaa taulukon käytetyn ko'on
+     * @return 
+     */
     public int size() {
         return size;
     }
     
+    /**
+     * Lisäys metodi
+     * @param obj   Geneerinen objekti, joka halutaan lisätä taulukkoon
+     * @return      Onnistuiko lisäys vai ei
+     */
     public boolean add(T obj){
         try{
             if (tallessa.length == size){
-                T[] tmp = (T[]) new Object[tallessa.length*2];
-                for (int i = 0; i < tallessa.length; i++){
-                    tmp[i] = tallessa[i];
-                }
-                tallessa = tmp;
+                kasvataTaulukkoa();
             }
             tallessa[size] = obj;
             size++;
-            
         } catch (Exception e){
             return false;
         }
         return true;
     }
+    
+    /**
+     * Objektin poisto
+     * 
+     * @param index poistettavan objektin indeksi
+     * @return      Onnistuiko poisto vai ei
+     */
     public T remove(int index){
         T removed = (T) tallessa[index];
         try{
@@ -61,6 +85,10 @@ public class TaulukkoLista<T> implements java.io.Serializable{
         return removed;
     }
     
+    /**
+     * Tulostaa Taulukosta String-listauksen
+     * @return  tekstiesitys taulukosta
+     */
     @Override
     public String toString(){
         String str = "";
@@ -76,5 +104,16 @@ public class TaulukkoLista<T> implements java.io.Serializable{
         }
         return str;
         
+    }
+
+    /**
+     * Kasvattaa taulukon kokoa kaksinkertaiseksi
+     */
+    private void kasvataTaulukkoa() {
+        T[] tmp = (T[]) new Object[tallessa.length*2];
+        for (int i = 0; i < tallessa.length; i++){
+            tmp[i] = tallessa[i];
+        }
+        tallessa = tmp;
     }
 }

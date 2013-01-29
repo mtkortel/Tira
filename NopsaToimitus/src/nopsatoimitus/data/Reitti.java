@@ -5,22 +5,25 @@
 package nopsatoimitus.data;
 
 /**
- *
- * @author mkortelainen
+ *  Luokka pitää sisällään reitin ja siihen littyvää tietoa.
+ * 
+ * @author Marko Kortelainen
  */
 public class Reitti {
     ReittiPiste[] pisteet;
-    private double pituus;
-    int seuraava;
-    boolean tilaa;
+    private double pituus = 0;
+    int seuraava = 0;
+    boolean tilaa =true;
     XMLParser googleParser;
     
+    /**
+     * Konstruktori joka alustaa reitin, pituuden yms.
+     * @param koko Reitin koko (pisteiden määrä)
+     */
     public Reitti(int koko){
         googleParser = new XMLParser();
         if (koko > 0){
             pisteet = new ReittiPiste[koko];
-            pituus = -1;
-            seuraava=0;
             tilaa=true;
         } else {
             tilaa=false;
@@ -32,7 +35,7 @@ public class Reitti {
      * @return      Onnistuiko lisääminen
      */
     public boolean setSeuraavaPiste(ReittiPiste piste, boolean useGoogle){
-        if (tilaa){
+        if (seuraava<pisteet.length){
             pisteet[seuraava] = piste;
             seuraava++;
             if ( seuraava>1 ){
@@ -41,12 +44,17 @@ public class Reitti {
                 } else {
                     pituus += GeoCode.distance(pisteet[seuraava-2], pisteet[seuraava-1]);
                 }
-            } else {
-                pituus = 0;
             }
-            if (seuraava==pisteet.length){
-                tilaa=false;
-            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public boolean setSeuraavaPiste(ReittiPiste piste, double etaisyys){
+        if (seuraava<pisteet.length){
+            pisteet[seuraava] = piste;
+            pituus += etaisyys;
+            seuraava++;
             return true;
         } else {
             return false;

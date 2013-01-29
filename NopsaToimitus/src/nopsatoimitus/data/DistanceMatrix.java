@@ -12,11 +12,11 @@ import java.net.Proxy;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.soap.Node;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import org.w3c.dom.DOMException;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
@@ -31,6 +31,7 @@ public class DistanceMatrix {
     private final String gmaps3 = "&language=fi-FI&sensor=false";
     XPathFactory factory;
     XPath xpath;
+    private double[][] matkat;
     
     /**
      * Konstruktori
@@ -40,14 +41,37 @@ public class DistanceMatrix {
         xpath = factory.newXPath();
     }
     
-    public void getMatrix(TaulukkoLista<ReittiPiste> lista){
+    /**
+     * Metodi, joka palauttaa matriisin reittipisteden etäisyyksistä
+     * @param lista Etsittävät reittipisteet
+     * @return      matriisi etäisyyksistä
+     */
+    public double[][] getMatrix(TaulukkoLista<ReittiPiste> lista){
+        matkat = new double[lista.size][lista.size];
+        int rivi = 0;
+        int sarake = 0;
         NodeList nodes = getDistance(lista);
         for(int i = 0; i < nodes.getLength(); i++){
-            System.out.println(nodes.item(i).getTextContent());
+            double dist=0;
+            dist = parseKM(nodes, i);
+            matkat[rivi][sarake] = dist;
+            //matkat[rivi][sarake] = Double.parseDouble(nodes.item(i).getTextContent().replaceAll(" km", "").replaceAll(" m", "").replaceAll(",", "."));
+            sarake++;
+            if (sarake==lista.size){
+                rivi++;
+                sarake=0;
+            }
+            System.out.println(dist);
         }
+        return matkat;
        
     }
 
+    /**
+     * Metodi parseroi komennon ja palauttaa XML listan reittipisteistä
+     * @param lista Lista reittipisteistä
+     * @return      XML Node lista
+     */
     private NodeList getDistance(TaulukkoLista<ReittiPiste> lista) {
         String start = "";
         String dest = "";
@@ -71,12 +95,22 @@ public class DistanceMatrix {
         return null;
     }
 
+    /**
+     * Metodi hakee reittipistelistan matriisin Google Maps DistanceMatrix API:lta
+     * 
+     * @param cmd   http komento reittien kyselyä varten
+     * @return      XML Nodelista reitistä
+     * @throws MalformedURLException
+     * @throws IOException
+     * @throws XPathExpressionException 
+     */
     private NodeList getDists(String cmd) throws MalformedURLException, IOException, XPathExpressionException {
         InputSource inputXml = getXML(cmd);
         String xpathExpression = "/DistanceMatrixResponse/row/element/distance/text";
         NodeList nodes = (NodeList) xpath.evaluate(xpathExpression, inputXml, XPathConstants.NODESET);
         return nodes;
     }
+    
     /**
      * Metodi hakee XML viestin Google Maps API:lta
      * @param url   Osoite josta viesti haetaan
@@ -94,5 +128,23 @@ public class DistanceMatrix {
         c.setReadTimeout(5000);
         InputSource inputXml = new InputSource(c.getInputStream());
         return inputXml;
+    }
+
+    /**
+     * Metodi parseroi kilometrit XML viestistä
+     * @param nodes XML viestin osa
+     * @param i     indeksi
+     * @return      kilometrit
+     * @throws DOMException
+     * @throws NumberFormatException 
+     */
+    private double parseKM(NodeList nodes, int i) throws DOMException, NumberFormatException {
+        double dist;
+        if (nodes.item(i).getTextContent().contains(" m")){
+            dist = Double.parseDouble( nodes.item(i).getTextContent().replaceAll(" m", "").replaceAll(",", ".") ) / 100 ;
+        } else {
+            dist = Double.parseDouble(nodes.item(i).getTextContent().replaceAll(" km", "").replaceAll(",", "."));
+        }
+        return dist;
     }
 }
