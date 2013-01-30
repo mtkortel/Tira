@@ -61,7 +61,7 @@ public class DistanceMatrix {
                 rivi++;
                 sarake=0;
             }
-            System.out.println(dist);
+            //System.out.println(dist);
         }
         return matkat;
        
@@ -119,7 +119,7 @@ public class DistanceMatrix {
      * @throws IOException 
      */
     private InputSource getXML(String url) throws MalformedURLException, IOException {
-        System.out.println(url);
+        //System.out.println(url);
         URL gmaps = new URL(url);
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("cache-services.securitas.fi", 8080));
         HttpURLConnection c = (HttpURLConnection)gmaps.openConnection(proxy);

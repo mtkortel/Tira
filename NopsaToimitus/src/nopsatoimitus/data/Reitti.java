@@ -74,4 +74,17 @@ public class Reitti {
     public ReittiPiste[] getReitti(){
         return pisteet;
     }
+    
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder(); 
+        for(int i = 0; i < pisteet.length; i++){
+            ReittiPiste rp = pisteet[i];
+            sb.append(rp.getNimi());
+            if (i < pisteet.length-1){
+                sb.append( " -> ");
+            }
+        }
+        return sb.toString();
+    }
 }

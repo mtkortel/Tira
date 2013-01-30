@@ -17,6 +17,8 @@ public class LahinNaapuri {
     double[][] matkat;
     boolean[] kayty;
     Reitti reitti;
+    boolean isEka=true;
+    int paikka=0;
     /**
      * Konstruktori, joka alustaa asiat
      * @param lista     Lista reittipisteistä
@@ -27,27 +29,18 @@ public class LahinNaapuri {
         this.matkat = matkat;
         this.kayty = new boolean[matkat.length];
         // Listalla on lähtöpiste, muttei maalia
-        reitti = new Reitti(lista.size+1);
+        reitti = new Reitti(lista.size);
     }
     
     /**
      * Lyhimmän reitin etsinnän aloitus
-     * @return 
+     * @return lyhin reitti käyttäen hyväksi lähimmän naapurin algoritmiä
      */
     public Reitti etsiLyhinReitti(){
-        reitti.setSeuraavaPiste(lista.get(0), 0); // Asetetaan lähtöpiste
-        kayty[0] = true;
-        // Onko vielä käyty kaikkialla
-        int viimeisin;
-        int viimInd = 0;
-        while(Arrays.toString(kayty).contains("f")){
-            viimeisin = etsiLyhinNaapuri(viimInd);
-            reitti.setSeuraavaPiste(lista.get(viimeisin), matkat[viimInd][viimeisin]);
-            kayty[viimeisin] = true;
-            viimInd++;
-        }
-        reitti.setSeuraavaPiste(lista.get(0), matkat[viimInd-1][0]);
-        
+        reitti.setSeuraavaPiste(lista.get(0), 0);
+        kayty[0]=true;
+        int viimeinen = etsiLyhinNaapuri(0);
+        reitti.setSeuraavaPiste(lista.get(viimeinen), matkat[viimeinen][0]);
         return reitti;
     }
 
@@ -55,29 +48,35 @@ public class LahinNaapuri {
      * Etsii lähimmän naapurin
      * 
      * @param   lähtöpiste etsintään
-     * @return  lähimmän naapurin indeksi
+     * @return  viimeisimmän reittipisteen indeksi ennen maalia
      */
-    private int etsiLyhinNaapuri(int mistaEtsitaan) {
-        int rp = -1;
-        double etaisyys = -1;
-        for (int i = 0; i < kayty.length; i++){
-            if (!kayty[i]){
-                if (etaisyys == -1){ // ensimmäinen
-                    etaisyys = matkat[mistaEtsitaan][i];
-                } else if (etaisyys > matkat[mistaEtsitaan][i]){
-                    etaisyys = matkat[mistaEtsitaan][i];
-                    rp = i;
+     private int etsiLyhinNaapuri(int rivi){
+        double matka=Double.MAX_VALUE;        
+        for (int sar=0; sar < kayty.length; sar++){
+            if (!kayty[sar]){
+                if (matkat[rivi][sar]<matka){
+                    matka = matkat[rivi][sar];
+                       paikka = sar;
                 }
             }
         }
-        return rp;
+        merkitsePiste(matka, rivi);
+        return paikka;
     }
- 
+
     /**
-     * Palauttaa lyhimmän reitin
-     * @return  lyhin reitti
-     */
-    public Reitti getLyhinReitti(){
-        return reitti;
+     * Merkitsee pisteen reitille ja siirtyy seuraavaan
+     * @param matka
+     * @param rivi 
+     */ 
+    private void merkitsePiste(double matka, int rivi) {
+        reitti.setSeuraavaPiste(lista.get(paikka), matka);
+        kayty[paikka]=true;
+        
+        rivi++;
+        if (rivi < matkat.length){
+            paikka=0;
+            etsiLyhinNaapuri(rivi);
+        }
     }
 }
