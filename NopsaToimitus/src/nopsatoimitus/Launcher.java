@@ -5,6 +5,7 @@
 package nopsatoimitus;
 
 import java.util.Calendar;
+import nopsatoimitus.data.BranchAndBound;
 import nopsatoimitus.data.DistanceMatrix;
 import nopsatoimitus.data.LahinNaapuri;
 import nopsatoimitus.data.Permutaatio;
@@ -151,6 +152,12 @@ public class Launcher {
         System.out.println("Reitti     : "+ nn.toString());
         cal2 = Calendar.getInstance();
         System.out.println("Kesto: " + (cal2.getTimeInMillis() - cal1.getTimeInMillis()) + " ms.");
+        cal1 = Calendar.getInstance();
+        System.out.println("Branch-and-Bound algoritmi");
+        
+        cal2 = Calendar.getInstance();
+        System.out.println("Kesto: " + (cal2.getTimeInMillis() - cal1.getTimeInMillis()) + " ms.");
+        
         // Google Maps Distance Matrix hakee nopeammin
         // https://developers.google.com/maps/documentation/distancematrix/
         // http://maps.googleapis.com/maps/api/distancematrix/json?origins=Hyvink%C3%A4%C3%A4+Finland|Porvoo+Finland&destinations=Hyvink%C3%A4%C3%A4+Finland|Porvoo+Finland&language=fi-FI&sensor=false
