@@ -154,7 +154,7 @@ public class Launcher {
         System.out.println("Kesto: " + (cal2.getTimeInMillis() - cal1.getTimeInMillis()) + " ms.");
         cal1 = Calendar.getInstance();
         System.out.println("Branch-and-Bound algoritmi");
-        
+        BranchAndBound bnb = new BranchAndBound(matkat, lista);
         cal2 = Calendar.getInstance();
         System.out.println("Kesto: " + (cal2.getTimeInMillis() - cal1.getTimeInMillis()) + " ms.");
         
