@@ -32,7 +32,7 @@ public class ReittiReader {
      * @return Taulukko reittipisteistä
      */
     public TaulukkoLista<ReittiPiste> lue(){
-        TaulukkoLista<ReittiPiste> pisteet = new TaulukkoLista<>();
+        TaulukkoLista<ReittiPiste> pisteet = new TaulukkoLista<ReittiPiste>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(tiedosto));
             String rivi;
