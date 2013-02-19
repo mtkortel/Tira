@@ -22,13 +22,15 @@ public class BranchAndBound {
         this.paikat = paikat;
         boolean[] visited = new boolean[matkat.length];
         pisteet = new int[matkat.length];
+        visited[0]=true;
         System.out.println("BnB : " + gen(Double.MAX_VALUE, 0, visited, pisteet, 0, 0));
         for (int i = 0; i < pisteet.length; i++){
             System.out.print(pisteet[i] + " ");
         }
         System.out.println();
+        System.out.println("Pituus: " + mybest);
     }
-    
+    double mybest = Double.MAX_VALUE;
     /**
      * Branch-and-bound algoritmi.
      * 
@@ -42,9 +44,12 @@ public class BranchAndBound {
     public double gen(double best, double length, boolean[] visited, int[] pisteet,
             int current, int k){
         if (k == matkat.length-1){
+            if (mybest > length + matkat[current][0]){
+                this.pisteet = pisteet;
+                mybest = length + matkat[current][0];
+            }
             return length + matkat[current][0];
         }
-        double mybest = Double.MAX_VALUE;
         for (int i = 1; i < matkat.length; i++){
             if (!visited[i]){
                 boolean[] visited2 = luoKopio(visited);
@@ -53,14 +58,10 @@ public class BranchAndBound {
                 pisteet2[i] = current;
                 if (length+matkat[current][i] < best){
                     double newp = gen(best, length+matkat[current][i], visited2, pisteet2, i, k+1);
-                    if (newp < mybest){
-                        mybest = newp;
-                        //pisteet = pisteet2;
-                    }
                     if (newp < best){
                         best = newp;
-                        this.pisteet = pisteet2;
                     }
+                    
                 }
             }
         }
