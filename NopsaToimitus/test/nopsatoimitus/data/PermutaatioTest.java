@@ -38,7 +38,7 @@ public class PermutaatioTest {
 
     @Test
     public void testSomeMethod() {
-        TaulukkoLista<ReittiPiste> lista = new TaulukkoLista<>();
+        TaulukkoLista<ReittiPiste> lista = new TaulukkoLista<ReittiPiste>();
         ReittiPiste lähtö = new ReittiPiste(60.197094, 24.947634, "Lähtö");
         lähtö.setVisit(true);
         ReittiPiste eka = new ReittiPiste(60.205273, 24.963062, "HY"); //HY
