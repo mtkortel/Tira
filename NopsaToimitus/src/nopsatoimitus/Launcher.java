@@ -6,6 +6,7 @@ package nopsatoimitus;
 
 import java.util.Calendar;
 import nopsatoimitus.data.BranchAndBound;
+import nopsatoimitus.data.CW;
 import nopsatoimitus.data.DistanceMatrix;
 import nopsatoimitus.data.LahinNaapuri;
 import nopsatoimitus.data.Permutaatio;
@@ -158,6 +159,7 @@ public class Launcher {
         cal2 = Calendar.getInstance();
         System.out.println("Kesto: " + (cal2.getTimeInMillis() - cal1.getTimeInMillis()) + " ms.");
         
+        CW cw = new CW(matkat, lista);
         // Google Maps Distance Matrix hakee nopeammin
         // https://developers.google.com/maps/documentation/distancematrix/
         // http://maps.googleapis.com/maps/api/distancematrix/json?origins=Hyvink%C3%A4%C3%A4+Finland|Porvoo+Finland&destinations=Hyvink%C3%A4%C3%A4+Finland|Porvoo+Finland&language=fi-FI&sensor=false
