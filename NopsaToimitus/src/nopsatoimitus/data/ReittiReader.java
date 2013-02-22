@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import nopsatoimitus.Launcher;
 
 /**
  * Lukee reitin tiedostosta
@@ -17,7 +18,6 @@ import java.util.logging.Logger;
  */
 public class ReittiReader {
     private final String tiedosto;
-    private boolean isAddress = false;
     
     /**
      * Konstruktori
@@ -40,7 +40,7 @@ public class ReittiReader {
             while ((rivi = reader.readLine()) != null){
                 ReittiPiste piste;
                 if (row==0){
-                    hasAdderss(rivi);
+                    hasProxy(rivi);
                     row++;
                 } else { // GPS pisteet
                     String[] jako = rivi.split(",");
@@ -54,23 +54,17 @@ public class ReittiReader {
         return pisteet;
     }
 
-    /**
-     * Onko osoiteet käytössä
-     * @return 
-     */
-    public boolean isAddress() {
-        return isAddress;
-    }
+   
 
     /**
-     * Onko tiedostossa osoitetiedot
-     * @param rivi yksi rivi tiedostosta
+     * Lukee tiedostosta proxyasetukset
+     * @param rivi Proxyasetukset
      */
-    private void hasAdderss(String rivi) {
-        if (rivi.equalsIgnoreCase("ADDR")){
-            isAddress=true;
-        } else {
-            isAddress=false;
+    private void hasProxy(String rivi) {
+        String[] prox = rivi.split(":");
+        if (prox.length==2){
+            Launcher.proxy_host = prox[0];
+            Launcher.proxy_port = Integer.parseInt(prox[1]);
         }
     }
     /**

@@ -16,6 +16,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import nopsatoimitus.Launcher;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
@@ -48,8 +49,12 @@ public class XMLParser {
     public double getDistance(ReittiPiste origin, ReittiPiste dest){
         double dd = 0;
         try {
-            System.setProperty("http.proxyHost", "cache-services.securitas.fi");
-            System.setProperty("http.proxyPort", "8080");
+            if (!"".equals(Launcher.proxy_host)){
+                System.setProperty("http.proxyHost", Launcher.proxy_host);
+                System.setProperty("http.proxyPort", String.valueOf(Launcher.proxy_port));
+                //System.setProperty("http.proxyHost", "cache-services.securitas.fi");
+                //System.setProperty("http.proxyPort", "8080");
+            }
             NodeList nodes = getDist(origin, dest);
             int n = nodes.getLength();
             for (int i = 0; i < n; i++){
@@ -88,8 +93,15 @@ public class XMLParser {
      */
     private InputSource getXML(String url) throws MalformedURLException, IOException {
         URL gmaps = new URL(url);
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("cache-services.securitas.fi", 8080));
-        HttpURLConnection c = (HttpURLConnection)gmaps.openConnection(proxy);
+        HttpURLConnection c;
+        if (!"".equals(Launcher.proxy_host)){
+            //Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("cache-services.securitas.fi", 8080));
+            Proxy proxy = new Proxy(Proxy.Type.HTTP, 
+                    new InetSocketAddress(Launcher.proxy_host, Launcher.proxy_port));
+            c = (HttpURLConnection)gmaps.openConnection(proxy);
+        } else {
+            c = (HttpURLConnection)gmaps.openConnection();
+        }
         c.connect();
         c.setConnectTimeout(5000);
         c.setReadTimeout(5000);

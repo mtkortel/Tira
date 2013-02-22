@@ -50,6 +50,14 @@ public class Reitti {
             return false;
         }
     }
+    
+    /**
+     * Asettaa ReittiPisteen paikalleen. Asetetaan samalla reitin pituutta
+     * @param piste     Reittipiste
+     * @param etaisyys  Reitin pituus
+     * @return      Onnistuiko lisääminen
+     * 
+     */
     public boolean setSeuraavaPiste(ReittiPiste piste, double etaisyys){
         if (seuraava<pisteet.length){
             pisteet[seuraava] = piste;
@@ -75,6 +83,11 @@ public class Reitti {
         return pisteet;
     }
     
+    /**
+     * Yliajettu tulostusmetodi
+     * 
+     * @return 
+     */
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder(); 

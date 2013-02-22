@@ -4,8 +4,6 @@
  */
 package nopsatoimitus.data;
 
-import java.util.List;
-
 /**
  * GPS koordinaattien koodausta ja tulkkausta
  *
@@ -43,57 +41,4 @@ public class GeoCode {
     public static double distance(ReittiPiste point_a, ReittiPiste point_b){
         return GeoCode.distance(point_a.getLat(), point_a.getLon(), point_b.getLat(), point_b.getLon());
     }
-
-    /*
-    public static Double[][] doMatrix(List<ReittiPiste> lista) {
-        int koko = lista.size();
-        Double[][] matriisi = new Double[koko][koko];
-        for(int i = 0; i < koko; i++){
-            for(int j = 0; j < koko; j++){
-                if (matriisi[i][j] == null){
-                    Double matka = GeoCode.distance(lista.get(i), lista.get(j));
-                    matriisi[i][j] = matka;
-                    matriisi[j][i] = matka;
-                }
-            }
-        }
-        
-        return matriisi;
-    }
-*/
-    /*
-    public static void findShortest(List<ReittiPiste> lista, Double[][] matriisi, int lahtö) {
-        int koko = matriisi.length;
-        //Double pituus = 0;
-        ReittiPiste piste = lista.get(lahtö);
-        for(int i = 0; i < koko; i++){
-            for(int j = 0; j < koko; j++){
-                
-                if (matriisi[i][j] == null){
-                    Double matka = GeoCode.distance(lista.get(i), lista.get(j));
-                    matriisi[i][j] = matka;
-                    matriisi[j][i] = matka;
-                }
-            }
-        }
-    }
-*/
-    /*
-    public static ReittiPiste[][] doMatrix2(List<ReittiPiste> lista) {
-        int koko = lista.size();
-        ReittiPiste[][] matriisi = new ReittiPiste[koko][koko];
-        for(int i = 0; i < koko; i++){
-            for(int j = 0; j < koko; j++){
-                if (matriisi[i][j] == null){
-                    if (j==0){
-                        matriisi[i][j] = lista.get(0);
-                    } else {
-                        matriisi[i][j] = lista.get(j);
-                    }
-                }
-            }
-        }
-        
-        return matriisi;
-    }*/
 }

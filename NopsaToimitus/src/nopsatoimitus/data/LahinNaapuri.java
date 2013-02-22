@@ -19,6 +19,7 @@ public class LahinNaapuri {
     Reitti reitti;
     boolean isEka=true;
     int paikka=0;
+    
     /**
      * Konstruktori, joka alustaa asiat
      * @param lista     Lista reittipisteistä
@@ -29,7 +30,7 @@ public class LahinNaapuri {
         this.matkat = matkat;
         this.kayty = new boolean[matkat.length];
         // Listalla on lähtöpiste, muttei maalia
-        reitti = new Reitti(lista.size);
+        reitti = new Reitti(lista.size+1);
     }
     
     /**
@@ -40,7 +41,8 @@ public class LahinNaapuri {
         reitti.setSeuraavaPiste(lista.get(0), 0);
         kayty[0]=true;
         int viimeinen = etsiLyhinNaapuri(0);
-        reitti.setSeuraavaPiste(lista.get(viimeinen), matkat[viimeinen][0]);
+        //reitti.setSeuraavaPiste(lista.get(viimeinen), matkat[viimeinen][0]);
+        reitti.setSeuraavaPiste(lista.get(0), matkat[viimeinen][0]);
         return reitti;
     }
 
@@ -74,9 +76,24 @@ public class LahinNaapuri {
         kayty[paikka]=true;
         
         rivi++;
-        if (rivi < matkat.length){
+        //if (rivi < matkat.length){
+        if (!allTrue(kayty)){
             paikka=0;
             etsiLyhinNaapuri(rivi);
         }
+    }
+    
+    /**
+     * Tarkastaa onko boolean taulukon kaikki alkiot tosia
+     * @param taulukko  tarkastettava taulukko
+     * @return          onko kaikki arvot tosia
+     */
+    private boolean allTrue(boolean[] taulukko){
+        for(boolean b: taulukko){
+            if (!b){
+                return false;
+            }
+        }
+        return true;
     }
 }

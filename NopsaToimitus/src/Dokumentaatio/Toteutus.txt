@@ -1,0 +1,18 @@
+Toteutusdokumentaatio
+
+Ohjelma käynnistää Launcher luokasta kaikki tarvittavat aliohjelmat.
+
+Ohjelma käy läpi mahdolliset reitit eri algoritmeja hyväksikäyttäen.
+1) Brute Force
+2) Lähän naapuri
+3) Clarke-Wright
+Algoritmin suorittamisen jälkeen ohjelma tulostaa reitin ja sen pituuden.
+Kaksi viimeisintä käyttää hyväksi Googlen DistanceMatrix API:a
+
+Lähteet:
+
+1. http://www.seas.gwu.edu/~simhaweb/champalg/tsp/tsp.html (Clarke-Wright)
+2. Tietorakenteet - Luentokalvot (Floren 2012)
+3. http://web.mit.edu/urban_or_book/www/book/chapter6/6.4.12.html
+4. https://developers.google.com/maps/documentation/distancematrix/
+

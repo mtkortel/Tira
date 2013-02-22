@@ -1,0 +1,38 @@
+# Määrittely
+
+Rahtifirma NopsaToimitus haluaa saada paketit perille mahdollisimman nopeasti ja 
+vähillä polttoainekustannuksilla. Suunnittele miten voidaan laskea reitti toimitusautolle, 
+niin että kaikki paketit tulee toimitettua perille mahdollisimman lyhyellä ajomatkalla. 
+Kussakin toimistuspaikassa käydään vain kerran. 
+Ongelma on ns. Kauppamatkustajan ongelma
+
+## 1. Mitä algoritmeja ja tietorakenteita toteutat työssäsi
+
+    Brute force, permutaatio
+    Lähin Naapuri (nearest neighbour)
+    Clarke-Wright
+    Lista
+
+## 2. Miksi valitsit kyseiset algoritmit/tietorakenteet 
+    Kauppamatkustajan ongelma on ratkaistavissa tällä hetkellä olevan tiedon mukaan 
+    ainoastaan brute froce-tavalla. Ongelma on NP täydellinen.
+
+## 3. Mitä syötteitä ohjelma saa ja miten näitä käytetään Syöte tulee tiedostosta, 
+    jonka nimi annetaan ohjelmaa käynnistettäessä 
+    Tiedoston rakenne on seuraava (rivinumeroittain)
+
+    koordinaatti vai osoite ( COORD | ADDR )
+    lähtöpiste
+    reittipiste nro 1
+    reittipiste nro 2
+    jne
+
+## 4. Tavoitteena olevat aika- ja tilavaativuudet (m.m. O-analyysi)
+    brute force O(n2)
+    Lähin naapuri O(log n)
+    CW
+
+## 5. Lähteet 
+    1. http://www.seas.gwu.edu/~simhaweb/champalg/tsp/tsp.html (Clarke-Wright)
+    2. Tietorakenteet - Luentokalvot (Floren 2012)
+    3. http://web.mit.edu/urban_or_book/www/book/chapter6/6.4.12.html

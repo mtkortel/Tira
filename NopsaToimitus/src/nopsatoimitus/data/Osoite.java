@@ -15,6 +15,7 @@ public class Osoite {
     private Osoite isapuu = null;
     private double etaisyys = 0;
     ReittiPiste rp = null;
+    
     /**
      * Konstruktori, jossa asetetaan reitin edellinen osoite, sekä matka sinne
      * 
@@ -26,13 +27,28 @@ public class Osoite {
         etaisyys = matka;
         this.rp = rp;
     }
+    
+    /**
+     * Konstruktori, jolla asetetaan Reittipiste
+     * 
+     * @param rp    Reittipiste
+     */
     public Osoite(ReittiPiste rp){
         this.rp = rp;
     }
     
+    /**
+     * Uuden osoiteen lisäys
+     * @param uusi  uusi osoite
+     */
     public void lisaa(Osoite uusi){
         lapset.add(uusi);
     }
+    
+    /**
+     * Palauttaa osoitteen
+     * @return 
+     */
     public Osoite get(){
         return this;
     }

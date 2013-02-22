@@ -1,0 +1,17 @@
+Viikon 5 raportti
+
+- Dokumentaatiota alettu parantamaan
+    - JavaDoc OK
+    - Määrittely OK
+    - Toteutus OK
+    - Käyttöohjeet kesken
+
+- Branch-and-bound umpikujassa, vaihdettu Clarke-Wright algoritmiin
+- Clarke-Wright toimii
+
+- Yksikkötestaus OK
+
+- Muutettu proxy-asetusten määrittelyä tiedostoon
+  - ensimmäisellä rivillä tulee olla proxyn_nimi:proxyn_portti jos proxy on olemassa
+    jos proxya ei käytetä ensimmäinen rivi on tyhjä
+

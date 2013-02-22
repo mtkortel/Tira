@@ -8,7 +8,7 @@ package nopsatoimitus.data;
  * Reittipiste
  * Luokka joka sisältää yhden reitin varrella olevan pisteen
  *
- * @author mkortelainen
+ * @author Marko Kortelainen
  */
 public class ReittiPiste {
     private double lon;

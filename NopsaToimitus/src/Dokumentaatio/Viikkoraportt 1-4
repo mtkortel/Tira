@@ -1,0 +1,16 @@
+Muutaman ensimmäisen viikkon raportti:
+- brute force ratkaisu kivuttomasti toteutettu, hidas kuten arvata saattaakin, 
+    mutta löytää lyhimmän reitin
+
+- Google Distance Matrix API toimii hyvin, 
+    Googlen asettamat rajoitteet: 
+        100 elementtiä per kysely
+        100 elementtiä per 10 sekunttia
+        2500 elementtiä per 24 tuntia
+
+- Lähimmän Naapurin algoritmi toimii hyvin, ei löydä lyhintä mahdollista, mutta nopea
+
+- Branch-and-Bound algoritmi toimii, mutta palauttaa toistaiseksi vain reitin pituuden. 
+    Se miten reitti saadaan talteen tarvitsee vielä tutkimista.
+
+Tässä muutaman viikon ajalta tehtyjä asioita.
