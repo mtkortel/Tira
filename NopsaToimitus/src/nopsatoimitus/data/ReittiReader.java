@@ -39,14 +39,14 @@ public class ReittiReader {
             int row = 0;
             while ((rivi = reader.readLine()) != null){
                 ReittiPiste piste;
-                if (row==0){
-                    hasProxy(rivi);
-                    row++;
-                } else { // GPS pisteet
+                //if (row==0){
+                    //hasProxy(rivi);
+                    //row++;
+                //} else { // GPS pisteet
                     String[] jako = rivi.split(",");
                     piste = setPisteTiedot(jako);
                     pisteet.add(piste);
-                }
+                //}
             }
         } catch (IOException ex) {
             Logger.getLogger(ReittiReader.class.getName()).log(Level.SEVERE, null, ex);
@@ -58,6 +58,7 @@ public class ReittiReader {
 
     /**
      * Lukee tiedostosta proxyasetukset
+     * Käytössä vain koodadin työpaikalta testattaessa
      * @param rivi Proxyasetukset
      */
     private void hasProxy(String rivi) {
@@ -76,7 +77,7 @@ public class ReittiReader {
     private ReittiPiste setPisteTiedot(String[] jako) throws NumberFormatException {
         ReittiPiste piste;
         if (jako.length > 2){
-            piste = new ReittiPiste(Double.parseDouble(jako[0].trim()), Double.parseDouble(jako[1].trim()), jako[2].trim());
+            piste = new ReittiPiste(Double.parseDouble(jako[0].trim().replace("﻿", "")), Double.parseDouble(jako[1].trim()), jako[2].trim());
         } else {
             piste = new ReittiPiste(Double.parseDouble(jako[0].trim()), Double.parseDouble(jako[1].trim()), jako[0] + "-" + jako[1]);
         }

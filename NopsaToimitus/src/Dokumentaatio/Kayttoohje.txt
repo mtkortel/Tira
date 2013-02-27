@@ -1,2 +1,12 @@
 Ohjelman käyttöohje
 
+Samaan hakemistoon, mistä ohjelma käynnistetään laitetaan tiedosto paikat.txt.
+Ohjelma ei toimi mikäli käytössä on proxy-palvelin internet yhteyksiä varten.
+Ohjelma käyttää Googlen palveluita, joten internet yhteys on tarpeen.
+
+Tiedoston sisältö on seuraava:
+
+latitude, longitude, osoite (60.159865, 24.948484, Kasarminkatu 2 Helsinki)
+jne...
+
+ohjelma käynnistetään ja ohjelma lukee tiedoston ja tulostaa reitit ruudulle.

@@ -1,4 +1,3 @@
-172.17.35.2:8080
 60.197279, 24.946214, Elimäenkatu 28 Helsinki
 60.159865, 24.948484, Kasarminkatu 2 Helsinki
 60.222537, 24.948628, Perkiöntie 2 Helsinki

@@ -90,7 +90,7 @@ public class DistanceMatrix {
             
             return getDists(cmd);
         } catch (Exception ex) {
-            Logger.getLogger(XMLParser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DistanceMatrix.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
